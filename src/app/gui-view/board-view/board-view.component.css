@@ -1,0 +1,6 @@
+#squares {
+    display: grid;
+    grid-template-columns: repeat(8, 50px); /* 8 columns, 50px each */
+    grid-template-rows: repeat(8, 50px); /* 8 rows, 50px each */
+    gap: 2px; /* optional, for spacing */
+}

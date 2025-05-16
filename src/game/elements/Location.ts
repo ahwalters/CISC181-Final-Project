@@ -1,3 +1,8 @@
+/** This class represents the location
+ * of the BoardSqare within the 2D
+ * array of the GameBoard.
+ */
+
 export class Location {
     constructor(
         private row: number,
@@ -18,5 +23,9 @@ export class Location {
 
     setCol(col: number): void {
         this.col = col;
+    }
+
+    public equals(other: Location): boolean {
+        return this.row === other.row && this.col === other.col;
     }
 }
