@@ -77,6 +77,7 @@ export class PieceBlueHen extends Piece {
     updateAction(action: string): void {
         if (action === "attack") {
             this.increaseNumAttacks();
+            this.updateFly();
         }
     }
 
