@@ -8,6 +8,7 @@ logic:
 -  if the action is "attack", then call increaseNumAttacks
 */
 
+import { Location } from "./Location";
 import { Piece } from "./Piece";
 
 export class PieceBlueHen extends Piece {
@@ -56,7 +57,7 @@ export class PieceBlueHen extends Piece {
         );
     }
 
-    validMovePath(): boolean {
+    validMovePath(moveFrom: Location, moveTo: Location): boolean {
         return true;
     }
 

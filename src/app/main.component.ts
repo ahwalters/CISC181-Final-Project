@@ -19,7 +19,7 @@ export class MainComponent extends WebzComponent {
         super(html, css);
 
         // create an instance of controller
-        this.controller = new Controller(4, 5);
+        this.controller = new Controller(8, 8);
 
         // pass true if you want to run the text based input
         // and false if you want to run the gui based
