@@ -35,8 +35,8 @@ export class PieceKilljoy extends Piece {
         const rowDiff: number = moveFrom.getRow() - moveTo.getRow();
         const colDiff: number = moveFrom.getCol() - moveTo.getCol();
         return (
-            (rowDiff === 1 || rowDiff === -1) &&
-            (colDiff === 1 || colDiff === -1)
+            (rowDiff === 2 || rowDiff === -2) &&
+            (colDiff === 2 || colDiff === -2)
         );
     }
 
