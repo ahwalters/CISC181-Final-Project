@@ -27,3 +27,15 @@
     font-size: 16px;
     margin-bottom: 20px;
 }
+
+.turn-label {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-top: 4px;
+}
+
+.speak-text {
+    font-style: italic;
+    color: #666;
+    margin-top: 8px;
+}

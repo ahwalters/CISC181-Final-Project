@@ -55,4 +55,8 @@ export class GameS25 extends Game {
             return "Tie";
         }
     }
+
+    public getNumTurns(): number {
+        return this.numTurns;
+    }
 }
