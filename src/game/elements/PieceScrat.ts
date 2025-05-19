@@ -111,10 +111,8 @@ export class PieceScrat extends Piece {
     }
 
     validMovePath(moveFrom: Location, moveTo: Location): boolean {
-        if (!this.moveFrom || !this.moveTo) return false;
-
-        const rowDiff = Math.abs(moveFrom.getRow() - moveTo.getRow());
-        const colDiff = Math.abs(moveFrom.getRow() - moveTo.getCol());
+        const rowDiff: number = moveFrom.getRow() - moveTo.getRow();
+        const colDiff: number = moveFrom.getCol() - moveTo.getCol();
 
         return (
             (rowDiff === 2 && colDiff === 0) ||
