@@ -60,8 +60,9 @@ export class PieceBlueHen extends Piece {
     }
 
     validMovePath(moveFrom: Location, moveTo: Location): boolean {
-        const rowDiff: number = moveFrom.getRow() - moveTo.getCol();
+        const rowDiff: number = moveFrom.getRow() - moveTo.getRow();
         const colDiff: number = moveFrom.getCol() - moveTo.getCol();
+
         let canMove: boolean = true;
         if (!this.flies) {
             canMove =
