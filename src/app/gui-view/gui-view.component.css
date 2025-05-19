@@ -29,9 +29,8 @@
 }
 
 .turn-label {
-    font-weight: bold;
-    font-size: 1.1rem;
-    margin-top: 4px;
+    font-size: 16px;
+    margin-bottom: 20px;
 }
 
 .speak-text {

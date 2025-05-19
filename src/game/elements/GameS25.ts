@@ -38,18 +38,33 @@ export class GameS25 extends Game {
     }
 
     isGameEnded(): boolean {
-        return this.numTurns === 16;
+        return this.numTurns === 10;
     }
 
     getWinner(): string {
         const teamAHasPieces = this.teamA.getTeamPieces().length > 0;
         const teamBHasPieces = this.teamB.getTeamPieces().length > 0;
 
+        // Game ends automatically if either team has no pieces
+        if (!teamAHasPieces && !teamBHasPieces) {
+            return "Tie";
+        } else if (!teamAHasPieces) {
+            return this.teamB.getTeamColor();
+        } else if (!teamBHasPieces) {
+            return this.teamA.getTeamColor();
+        }
+
         if (!this.isGameEnded()) {
             return "Game in progress!";
-        } else if (teamAHasPieces > teamBHasPieces) {
+        }
+
+        // Fall back to existing logic
+        const aCount = this.teamA.getTeamPieces().length;
+        const bCount = this.teamB.getTeamPieces().length;
+
+        if (aCount > bCount) {
             return this.teamA.getTeamColor();
-        } else if (teamBHasPieces > teamAHasPieces) {
+        } else if (bCount > aCount) {
             return this.teamB.getTeamColor();
         } else {
             return "Tie";
