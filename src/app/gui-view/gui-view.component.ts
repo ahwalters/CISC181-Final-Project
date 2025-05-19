@@ -69,6 +69,7 @@ export class GuiViewComponent extends WebzComponent {
     private handleClicks(clicked: Location | string): void {
         if (clicked instanceof Location) {
             if (!this.startLocation) {
+                this.speakMessage = "";
                 const square = this.game.getGameBoard().getSquare(clicked);
                 const piece = square.getPiece();
 
@@ -183,6 +184,12 @@ export class GuiViewComponent extends WebzComponent {
                 this.endLocation,
             );
 
+            // ✅ Get the piece before performing the action
+            const actingSquare = this.game
+                .getGameBoard()
+                .getSquare(this.startLocation);
+            const actingPiece = actingSquare.getPiece();
+
             const success = this.controller.carryOutAction(
                 this.startLocation,
                 this.endLocation,
@@ -199,12 +206,7 @@ export class GuiViewComponent extends WebzComponent {
                 this.turnLabel = `${this.controller.getTurn()}'s Turn`;
                 this.turnCountLabel = `${turns} ${turnWord}`;
 
-                // ✅ NEW: show piece speak message
-                const actingSquare = this.game
-                    .getGameBoard()
-                    .getSquare(this.startLocation);
-                const actingPiece = actingSquare.getPiece();
-
+                // ✅ Show speak message if the piece existed before the action
                 if (actingPiece) {
                     const message = `${actingPiece.getType()} says: "${actingPiece.speak()}"`;
                     this.speakMessage = message;
