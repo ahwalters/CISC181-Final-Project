@@ -147,13 +147,6 @@ export class PieceScrat extends Piece {
         } else if (action === "crack") {
             this.increaseNumCracks();
         }
-        if (action.includes(",")) {
-            const [fromRow, fromCol, toRow, toCol] = action
-                .split(",")
-                .map(Number);
-            this.moveFrom = new Location(fromRow, fromCol);
-            this.moveTo = new Location(toRow, toCol);
-        }
     }
 
     getImageName(): string {
