@@ -40,6 +40,8 @@ export class ActionCrack extends Action {
 
         if (!piece) return;
 
+        console.log(piece.speak());
+
         // Crack the end square
         endSquare.crackThisSquare();
 
@@ -48,9 +50,6 @@ export class ActionCrack extends Action {
             endSquare.removePiece();
             this.game.getOpponentTeam().removePieceFromTeam(target);
         }
-
-        // Piece speaks
-        console.log(piece.speak());
 
         // Change turn
         this.game.changeTurn();
