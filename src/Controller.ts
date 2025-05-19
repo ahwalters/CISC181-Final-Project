@@ -90,7 +90,7 @@ export class Controller {
             new PieceBlueHen("H", teamBColor, false, true, 0),
             new PieceMinion("M", teamBColor, false, true, 0),
             new PieceScrat("S", teamBColor, false, true, 0, 0),
-            new PieceKilljoy(teamAColor, false, true),
+            new PieceKilljoy(teamBColor, false, true),
         ]);
 
         return new GameS25(board, teamA, teamB, teamAColor);
