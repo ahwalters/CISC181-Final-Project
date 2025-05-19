@@ -214,7 +214,8 @@ export class GuiViewComponent extends WebzComponent {
                     WebzDialog.popup(
                         this,
                         "Game over! Winner: " +
-                            this.controller.getGame().getWinner(),
+                            this.controller.getGame().getWinner() +
+                            "! Refresh to play again.",
                     );
                 }
             }
