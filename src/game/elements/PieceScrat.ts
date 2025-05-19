@@ -115,9 +115,8 @@ export class PieceScrat extends Piece {
         const colDiff: number = moveFrom.getCol() - moveTo.getCol();
 
         return (
-            (rowDiff === 2 && colDiff === 0) ||
-            (rowDiff === 0 && colDiff === 2) ||
-            (rowDiff === 2 && colDiff === 2)
+            (rowDiff === 2 || rowDiff === -2 || rowDiff === 0) &&
+            (colDiff === 2 || colDiff === -2 || colDiff === 0)
         );
     }
 
