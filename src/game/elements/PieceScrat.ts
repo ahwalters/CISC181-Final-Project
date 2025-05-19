@@ -110,11 +110,11 @@ export class PieceScrat extends Piece {
         return "Aaaahhhh!";
     }
 
-    validMovePath(): boolean {
+    validMovePath(moveFrom: Location, moveTo: Location): boolean {
         if (!this.moveFrom || !this.moveTo) return false;
 
-        const rowDiff = Math.abs(this.moveFrom.getRow() - this.moveTo.getRow());
-        const colDiff = Math.abs(this.moveFrom.getRow() - this.moveTo.getCol());
+        const rowDiff = Math.abs(moveFrom.getRow() - moveTo.getRow());
+        const colDiff = Math.abs(moveFrom.getRow() - moveTo.getCol());
 
         return (
             (rowDiff === 2 && colDiff === 0) ||
