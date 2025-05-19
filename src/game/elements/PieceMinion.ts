@@ -77,4 +77,5 @@ export class PieceMinion extends Piece {
     getType(): string {
         return "Minion";
     }
+    increaseNumAttacks(): void {}
 }
