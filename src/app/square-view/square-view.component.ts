@@ -74,7 +74,7 @@ export class SquareViewComponent extends WebzComponent {
     setImage(square: BoardSquare): void {
         if (square.isCracked()) {
             this.imgName = "";
-            this.imgName = "crack.png";
+            this.imgName = "cracked_tile.png";
             this.hasImage = true;
             this.imageColor = this.squareColor;
         } else {
