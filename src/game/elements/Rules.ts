@@ -85,7 +85,7 @@ export class Rules {
             return false;
         }
 
-        if (!piece.validMovePath()) {
+        if (!piece.validMovePath(startLocation, endLocation)) {
             this.message = "The move path is not valid for this piece.";
             return false;
         }
@@ -255,7 +255,7 @@ export class Rules {
         }
 
         // 6) must have a valid path (stubbed true for now)
-        if (!piece.validMovePath()) {
+        if (!piece.validMovePath(startLocation, endLocation)) {
             this.message = "The crack path is not valid for this piece.";
             return false;
         }

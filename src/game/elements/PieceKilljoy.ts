@@ -3,29 +3,47 @@ import { Location } from "./Location";
 
 export class PieceKilljoy extends Piece {
     private frozenTargets: Map<string, number> = new Map();
-    private moveFrom?: Location;
-    private moveTo?: Location;
+    private numAttacks: number;
+    private numFreezes: number;
+    private frozen: boolean;
 
-    constructor(teamColor: string, hidden: boolean, original: boolean) {
+    constructor(
+        teamColor: string,
+        hidden: boolean,
+        original: boolean,
+        numAttacks: number = 0,
+        numFreezes: number = 0,
+    ) {
         super("K", teamColor, hidden, original);
-        this.allowableActions = ["attack", "freeze"];
+        this.numAttacks = numAttacks;
+        this.numFreezes = numFreezes;
+        this.frozen = false;
+        this.allowableActions = ["attack", "freeze", "move"];
     }
 
     speak(): string {
         return "You're detained.";
     }
 
-    validMovePath(): boolean {
-        if (!this.moveFrom || !this.moveTo) return false;
-
-        const rowDiff = Math.abs(this.moveFrom.getRow() - this.moveTo.getRow());
-        const colDiff = Math.abs(this.moveFrom.getCol() - this.moveTo.getCol());
-        return rowDiff + colDiff === 1;
+    increaseNumAttacks(): void {
+        this.numAttacks += 1;
+    }
+    increaseNumFreezes(): void {
+        this.numFreezes += 1;
+    }
+    validMovePath(moveFrom: Location, moveTo: Location): boolean {
+        const rowDiff: number = moveFrom.getRow() - moveTo.getRow();
+        const colDiff: number = moveFrom.getCol() - moveTo.getCol();
+        return (
+            (rowDiff === 1 || rowDiff === -1) &&
+            (colDiff === 1 || colDiff === -1)
+        );
     }
 
     freeze(target: Piece, to: Location): string {
         const key = `${to.getRow()},${to.getCol()}`;
         this.frozenTargets.set(key, 2);
+        this.increaseNumFreezes();
         return "Killjoy used Freeze: target is frozen for 1 round.";
     }
 
@@ -53,14 +71,11 @@ export class PieceKilljoy extends Piece {
     }
 
     updateAction(action: string): void {
-        if (action.includes(",")) {
-            const [fromRow, fromCol, toRow, toCol] = action
-                .split(",")
-                .map(Number);
-            this.moveFrom = new Location(fromRow, fromCol);
-            this.moveTo = new Location(toRow, toCol);
+        if (action === "attack") {
+            this.increaseNumAttacks();
+        } else if (action === "freeze") {
+            this;
         }
-        // Else ignore, for actions like "attack" or "freeze"
     }
 
     getImageName(): string {

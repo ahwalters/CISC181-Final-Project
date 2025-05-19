@@ -16,6 +16,8 @@ Update PieceBlueHen,PieceMinion, PieceScrat classes before testing.
 Test them by using: npm run test PieceClasses
 */
 
+import { Location } from "./Location";
+
 export abstract class Piece {
     protected numSpawns: number;
     protected allowableActions: string[] = [];
@@ -66,7 +68,7 @@ export abstract class Piece {
 
     abstract updateAction(action: string): void;
     abstract speak(): string;
-    abstract validMovePath(): boolean;
+    abstract validMovePath(moveFrom: Location, moveTo: Location): boolean;
     abstract spawn(): Piece;
     abstract canSpawn(): boolean;
 

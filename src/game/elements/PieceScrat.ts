@@ -44,6 +44,7 @@ It should have the following:
     
 */
 
+import { Location } from "./Location";
 import { Piece } from "./Piece";
 
 export class PieceScrat extends Piece {
@@ -51,6 +52,8 @@ export class PieceScrat extends Piece {
     private numAttacks: number;
     private numRecruits: number;
     private numCracks: number;
+    private moveFrom?: Location;
+    private moveTo?: Location;
     public allowableAction(action: string): boolean {
         if (action === "spawn") {
             // only allow spawn while original & under MAX_CRACKS
@@ -108,7 +111,16 @@ export class PieceScrat extends Piece {
     }
 
     validMovePath(): boolean {
-        return true;
+        if (!this.moveFrom || !this.moveTo) return false;
+
+        const rowDiff = Math.abs(this.moveFrom.getRow() - this.moveTo.getRow());
+        const colDiff = Math.abs(this.moveFrom.getRow() - this.moveTo.getCol());
+
+        return (
+            (rowDiff === 2 && colDiff === 0) ||
+            (rowDiff === 0 && colDiff === 2) ||
+            (rowDiff === 2 && colDiff === 2)
+        );
     }
 
     spawn(): PieceScrat {
