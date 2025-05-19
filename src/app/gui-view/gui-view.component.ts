@@ -17,15 +17,21 @@ export class GuiViewComponent extends WebzComponent {
     private actionView: ActionViewComponent;
 
     @BindValue("turn-label")
-    private turnLabel: string = `${this.controller.getTurn()}'s Turn`;
+    private turnLabel: string = "";
 
     @BindValue("info-panel")
     private infoPanel: string = "Selected: None | Target: None";
 
+    @BindValue("turn-count")
+    private turnCountLabel: string = "0 Turns";
+
+    @BindValue("speak-panel")
+    private speakMessage: string = "";
+
     constructor(private controller: Controller) {
         super(html, css);
 
-        this.game = controller.getGame(); // ← type-safe
+        this.game = controller.getGame();
         const gameBoard = controller.getBoard();
         this.boardView = new BoardViewComponent(gameBoard);
 
@@ -41,6 +47,12 @@ export class GuiViewComponent extends WebzComponent {
         this.boardView.squareClicked.subscribe((loc: Location) => {
             this.handleClicks(loc);
         });
+
+        // Set turn label and turn count on init
+        this.turnLabel = `${this.controller.getTurn()}'s Turn`;
+        const turns = this.game.getNumTurns();
+        const turnWord = turns === 1 ? "Turn" : "Turns";
+        this.turnCountLabel = `${turns} ${turnWord}`;
     }
 
     public redraw(): void {
@@ -148,11 +160,9 @@ export class GuiViewComponent extends WebzComponent {
                 return;
             }
 
-            // ✅ Always update actionType, not just once
             this.actionType = clicked;
         }
 
-        // Update info panel
         const getLabel = (loc: Location | null): string => {
             if (!loc) return "None";
             const square = this.game.getGameBoard().getSquare(loc);
@@ -183,7 +193,22 @@ export class GuiViewComponent extends WebzComponent {
                 WebzDialog.popup(this, this.controller.getStatus());
             } else {
                 this.boardView.redraw();
+
+                const turns = this.game.getNumTurns();
+                const turnWord = turns === 1 ? "Turn" : "Turns";
                 this.turnLabel = `${this.controller.getTurn()}'s Turn`;
+                this.turnCountLabel = `${turns} ${turnWord}`;
+
+                // ✅ NEW: show piece speak message
+                const actingSquare = this.game
+                    .getGameBoard()
+                    .getSquare(this.startLocation);
+                const actingPiece = actingSquare.getPiece();
+
+                if (actingPiece) {
+                    const message = `${actingPiece.getType()} says: "${actingPiece.speak()}"`;
+                    this.speakMessage = message;
+                }
 
                 if (this.controller.getGame().isGameEnded()) {
                     WebzDialog.popup(
