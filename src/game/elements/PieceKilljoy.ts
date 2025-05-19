@@ -8,7 +8,7 @@ export class PieceKilljoy extends Piece {
 
     constructor(teamColor: string, hidden: boolean, original: boolean) {
         super("K", teamColor, hidden, original);
-        this.allowableActions = ["attack", "freeze"];
+        this.allowableActions = ["attack", "freeze", "move"];
     }
 
     speak(): string {
