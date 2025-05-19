@@ -3,8 +3,8 @@ import { Location } from "./Location";
 
 export class PieceKilljoy extends Piece {
     private frozenTargets: Map<string, number> = new Map();
-    private moveFrom!: Location;
-    private moveTo!: Location;
+    private moveFrom?: Location;
+    private moveTo?: Location;
 
     constructor(teamColor: string, hidden: boolean, original: boolean) {
         super("K", teamColor, hidden, original);
@@ -16,11 +16,19 @@ export class PieceKilljoy extends Piece {
     }
 
     validMovePath(): boolean {
-        const rowDiff = Math.abs(this.moveFrom.getRow() - this.moveTo.getRow());
-        const colDiff = Math.abs(this.moveFrom.getCol() - this.moveTo.getCol());
+        if (this.moveFrom && this.moveTo) {
+            const rowDiff = Math.abs(
+                this.moveFrom.getRow() - this.moveTo.getRow(),
+            );
+            const colDiff = Math.abs(
+                this.moveFrom.getCol() - this.moveTo.getCol(),
+            );
 
-        // One-step diagonal move: both row and col differences must precisely equal 1.
-        return rowDiff === 1 && colDiff === 1;
+            // One-step diagonal move: both row and col differences must precisely equal 1.
+            return rowDiff === 1 && colDiff === 1;
+        } else {
+            return false;
+        }
     }
 
     freeze(target: Piece, to: Location): string {
