@@ -20,7 +20,9 @@ export class PieceKilljoy extends Piece {
 
         const rowDiff = Math.abs(this.moveFrom.getRow() - this.moveTo.getRow());
         const colDiff = Math.abs(this.moveFrom.getCol() - this.moveTo.getCol());
-        return rowDiff + colDiff === 1;
+
+        // One-step diagonal move: both row and col differences must precisely equal 1.
+        return rowDiff === 1 && colDiff === 1;
     }
 
     freeze(target: Piece, to: Location): string {
