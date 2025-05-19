@@ -47,6 +47,7 @@ export class ActionAttack extends Action {
         // Move attacker to end square
         endSquare.setPiece(attacker);
         startSquare.removePiece();
+        attacker.increaseNumAttacks();
 
         // Target speaks
         console.log(target.speak());

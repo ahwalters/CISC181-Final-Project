@@ -9,6 +9,7 @@ logic:
 */
 
 import { Piece } from "./Piece";
+import { Location } from "./Location";
 
 export class PieceMinion extends Piece {
     private numRecruits: number;
@@ -43,9 +44,13 @@ export class PieceMinion extends Piece {
         return "Bello!";
     }
 
-    validMovePath(): boolean {
-        // You will implement this method in a later step
-        return true;
+    validMovePath(moveFrom: Location, moveTo: Location): boolean {
+        const rowDiff: number = moveFrom.getRow() - moveTo.getRow();
+        const colDiff: number = moveFrom.getCol() - moveTo.getCol();
+        return (
+            (rowDiff === 1 || rowDiff === -1) &&
+            (colDiff === 1 || colDiff === -1)
+        );
     }
 
     spawn(): PieceMinion {
@@ -72,4 +77,5 @@ export class PieceMinion extends Piece {
     getType(): string {
         return "Minion";
     }
+    increaseNumAttacks(): void {}
 }

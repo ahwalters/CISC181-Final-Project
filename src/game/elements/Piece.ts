@@ -71,6 +71,7 @@ export abstract class Piece {
     abstract validMovePath(moveFrom: Location, moveTo: Location): boolean;
     abstract spawn(): Piece;
     abstract canSpawn(): boolean;
+    abstract increaseNumAttacks(): void;
 
     toString(): string {
         return this.teamColor.slice(0, 3) + " " + this.symbol;

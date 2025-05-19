@@ -8,6 +8,7 @@ logic:
 -  if the action is "attack", then call increaseNumAttacks
 */
 
+import { Location } from "./Location";
 import { Piece } from "./Piece";
 
 export class PieceBlueHen extends Piece {
@@ -38,7 +39,9 @@ export class PieceBlueHen extends Piece {
     }
 
     private updateFly(): void {
-        this.flies = this.numAttacks <= PieceBlueHen.MAX_NUM_ATTACKS;
+        if (this.numAttacks >= 3) {
+            this.flies = false;
+        }
     }
 
     speak(): string {
@@ -56,8 +59,16 @@ export class PieceBlueHen extends Piece {
         );
     }
 
-    validMovePath(): boolean {
-        return true;
+    validMovePath(moveFrom: Location, moveTo: Location): boolean {
+        const rowDiff: number = moveFrom.getRow() - moveTo.getCol();
+        const colDiff: number = moveFrom.getCol() - moveTo.getCol();
+        let canMove: boolean = true;
+        if (!this.flies) {
+            canMove =
+                ((rowDiff === 1 || rowDiff === -1) && colDiff === 0) ||
+                (rowDiff === 0 && (colDiff === 1 || colDiff === -1));
+        }
+        return canMove;
     }
 
     canSpawn(): boolean {
@@ -67,6 +78,7 @@ export class PieceBlueHen extends Piece {
     updateAction(action: string): void {
         if (action === "attack") {
             this.increaseNumAttacks();
+            this.updateFly();
         }
     }
 
