@@ -39,7 +39,7 @@ export class PieceBlueHen extends Piece {
     }
 
     private updateFly(): void {
-        this.flies = this.numAttacks <= PieceBlueHen.MAX_NUM_ATTACKS;
+        this.flies = this.numAttacks < PieceBlueHen.MAX_NUM_ATTACKS;
     }
 
     speak(): string {
