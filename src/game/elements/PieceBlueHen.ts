@@ -62,14 +62,13 @@ export class PieceBlueHen extends Piece {
     validMovePath(moveFrom: Location, moveTo: Location): boolean {
         const rowDiff: number = moveFrom.getRow() - moveTo.getCol();
         const colDiff: number = moveFrom.getCol() - moveTo.getCol();
+        let canMove: boolean = true;
         if (!this.flies) {
-            return (
+            canMove =
                 ((rowDiff === 1 || rowDiff === -1) && colDiff === 0) ||
-                (rowDiff === 0 && (colDiff === 1 || colDiff === -1))
-            );
-        } else {
-            return true;
+                (rowDiff === 0 && (colDiff === 1 || colDiff === -1));
         }
+        return canMove;
     }
 
     canSpawn(): boolean {
