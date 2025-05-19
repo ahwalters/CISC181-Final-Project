@@ -32,9 +32,12 @@ export class PieceKilljoy extends Piece {
         this.numFreezes += 1;
     }
     validMovePath(moveFrom: Location, moveTo: Location): boolean {
-        const rowDiff: number = Math.abs(moveFrom.getRow() - moveTo.getRow());
-        const colDiff: number = Math.abs(moveFrom.getCol() - moveTo.getCol());
-        return rowDiff === 1 && colDiff === 1;
+        const rowDiff: number = moveFrom.getRow() - moveTo.getRow();
+        const colDiff: number = moveFrom.getCol() - moveTo.getCol();
+        return (
+            (rowDiff === 1 || rowDiff === -1) &&
+            (colDiff === 1 || colDiff === -1)
+        );
     }
 
     freeze(target: Piece, to: Location): string {
